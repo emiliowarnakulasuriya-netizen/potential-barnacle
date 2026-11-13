@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ATLANTIS OS // Terminale Municipio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&family=Rajdhani:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --neon-cyan: #00f3ff;
+            --neon-purple: #bc13fe;
+            --bg-dark: #070913;
+            --panel-bg: rgba(16, 22, 42, 0.75);
+            --border-glow: rgba(0, 243, 255, 0.35);
+        }
+
+        body {
+            font-family: 'Rajdhani', sans-serif;
+            background-color: var(--bg-dark);
+            background-image: 
+                radial-gradient(circle at 15% 20%, rgba(188, 19, 254, 0.15) 0%, transparent 40%),
+                radial-gradient(circle at 85% 80%, rgba(0, 243, 255, 0.15) 0%, transparent 40%),
+                linear-gradient(rgba(0, 243, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 243, 255, 0.03) 1px, transparent 1px);
+            background-size: 100% 100%, 100% 100%, 30px 30px, 30px 30px;
+            color: #e2e8f0;
+            margin: 0;
+            padding: 30px 15px;
+            display: flex;
+            justify-content: center;
+            min-height: 100vh;
+            box-sizing: border-box;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 900px;
+            background: var(--panel-bg);
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--border-glow);
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: 0 0 30px rgba(0, 243, 255, 0.15), inset 0 0 20px rgba(0, 243, 255, 0.05);
+            position: relative;
+        }
+
+        /* Angoli tecnologici decorativi */
+        .container::before {
+            content: "SYS.VER.2.6 // ATLANTIS_GOV_NET";
+            position: absolute;
+            top: 10px;
+            right: 20px;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 10px;
+            color: var(--neon-cyan);
+            letter-spacing: 2px;
+            opacity: 0.7;
+        }
+
+        h1 {
+            font-family: 'Orbitron', sans-serif;
+            color: #fff;
+            text-align: center;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            margin-bottom: 5px;
+            text-shadow: 0 0 10px var(--neon-cyan), 0 0 20px rgba(0, 243, 255, 0.5);
+        }
+
+        .subtitle {
+            text-align: center;
+            color: var(--neon-cyan);
+            font-size: 14px;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            margin-bottom: 30px;
+            opacity: 0.8;
+        }
+
+        h2 {
+            font-family: 'Orbitron', sans-serif;
+            color: var(--neon-cyan);
+            font-size: 18px;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            border-bottom: 1px solid rgba(0, 243, 255, 0.2);
+            padding-bottom: 8px;
+            margin-top: 0;
+        }
+
+        .box {
+            background: rgba(10, 14, 28, 0.8);
+            border: 1px solid rgba(0, 243, 255, 0.2);
+            padding: 22px;
+            border-radius: 12px;
+            margin-bottom: 25px;
+            transition: border-color 0.3s ease;
+        }
+
+        .box:hover {
+            border-color: rgba(0, 243, 255, 0.5);
+        }
+
+        label {
+            display: block;
+            margin-bottom: 6px;
+            font-weight: 600;
+            color: #94a3b8;
+            text-transform: uppercase;
+            font-size: 13px;
+            letter-spacing: 1px;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 12px 15px;
+            margin-bottom: 18px;
+            border-radius: 6px;
+            border: 1px solid rgba(0, 243, 255, 0.3);
+            background-color: rgba(5, 8, 18, 0.9);
+            color: #fff;
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 16px;
+            box-sizing: border-box;
+            transition: all 0.3s ease;
+        }
+
+        input:focus, select:focus {
+            outline: none;
+            border-color: var(--neon-cyan);
+            box-shadow: 0 0 12px rgba(0, 243, 255, 0.3);
+        }
+
+        button {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(90deg, #00c6ff 0%, #0072ff 100%);
+            color: #fff;
+            border: none;
+            border-radius: 6px;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 14px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            cursor: pointer;
+            box-shadow: 0 0 15px rgba(0, 198, 255, 0.4);
+            transition: all 0.3s ease;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 0 25px rgba(0, 243, 255, 0.8);
+            background: linear-gradient(90deg, #00f3ff 0%, #0088ff 100%);
+        }
+
+        .header-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(0, 243, 255, 0.08);
+            border: 1px solid rgba(0, 243, 255, 0.25);
+            padding: 12px 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        .user-badge {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 14px;
+            color: var(--neon-cyan);
+        }
+
+        .btn-logout {
+            background: transparent;
+            border: 1px solid #ff2a5f;
+            color: #ff2a5f;
+            width: auto;
+            padding: 8px 16px;
+            font-size: 12px;
+            box-shadow: 0 0 10px rgba(255, 42, 95, 0.2);
+        }
+
+        .btn-logout:hover {
+            background: #ff2a5f;
+            color: #fff;
+            box-shadow: 0 0 20px rgba(255, 42, 95, 0.7);
+        }
+
+        .btn-reset {
+            background: transparent;
+            border: 1px solid var(--neon-purple);
+            color: var(--neon-purple);
+            width: auto;
+            padding: 8px 16px;
+            font-size: 12px;
+            margin-top: 15px;
+            box-shadow: 0 0 10px rgba(188, 19, 254, 0.2);
+        }
+
+        .btn-reset:hover {
+            background: var(--neon-purple);
+            color: #fff;
+            box-shadow: 0 0 20px rgba(188, 19, 254, 0.7);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        th, td {
+            padding: 14px 12px;
+            text-align: left;
+            border-bottom: 1px solid rgba(0, 243, 255, 0.15);
+            font-size: 16px;
+        }
+
+        th {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 12px;
+            letter-spacing: 1px;
+            color: var(--neon-cyan);
+            background-color: rgba(0, 243, 255, 0.05);
+            text-transform: uppercase;
+        }
+
+        tr:hover td {
+            background-color: rgba(0, 243, 255, 0.04);
+        }
+
+        .importo-cell {
+            color: #00ff88;
+            font-weight: 700;
+            text-shadow: 0 0 8px rgba(0, 255, 136, 0.4);
+        }
+
+        .totale-box {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 20px;
+            font-weight: 700;
+            text-align: right;
+            margin-top: 20px;
+            padding-top: 15px;
+            border-top: 1px dashed rgba(0, 243, 255, 0.3);
+            color: #00ff88;
+            text-shadow: 0 0 12px rgba(0, 255, 136, 0.5);
+        }
+
+        .hidden {
+            display: none !important;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>🏛️ Municipio AtlantisRP</h1>
+    <div class="subtitle">Terminale Centrale Segreteria</div>
+
+    <!-- SCHERMATA LOGIN -->
+    <div id="login-section" class="box">
+        <h2>// Autenticazione Operatore</h2>
+        <label for="ruolo">Livello di Accesso:</label>
+        <select id="ruolo" onchange="togglePassword()">
+            <option value="dipendente">Operatore Segreteria (Dipendente)</option>
+            <option value="admin">Amministratore di Sistema (Capo Segreteria)</option>
+        </select>
+
+        <label for="nome-utente">Identificativo Lore RP (Nome & Cognome):</label>
+        <input type="text" id="nome-utente" placeholder="Es. Emilio Kennedy">
+
+        <div id="password-group" class="hidden">
+            <label for="admin-pass">Codice Criptato Admin:</label>
+            <input type="password" id="admin-pass" placeholder="Inserisci chiave di sicurezza...">
+        </div>
+
+        <button onclick="accedi()">Inizializza Connessione</button>
+    </div>
+
+    <!-- SCHERMATA PRINCIPALE -->
+    <div id="app-section" class="hidden">
+        <div class="header-bar">
+            <span class="user-badge" id="benvenuto-testo"></span>
+            <button class="btn-logout" onclick="esci()">Disconnetti</button>
+        </div>
+
+        <!-- MODULO INSERIMENTO FATTURA -->
+        <div class="box">
+            <h2>// Registrazione Nuova Transazione</h2>
+            <label for="cliente">Soggetto Richiedente (Nome & Cognome Cliente):</label>
+            <input type="text" id="cliente" placeholder="Es. Marco Romano">
+
+            <label for="servizio">Tipologia Pratica / Servizio:</label>
+            <input type="text" id="servizio" placeholder="Es. Cambio nome, Porto d'armi, Licenza...">
+
+            <label for="importo">Valore Fattura ($):</label>
+            <input type="number" id="importo" placeholder="Es. 5000">
+
+            <button onclick="aggiungiFattura()">Trasmetti Dati al Registro</button>
+        </div>
+
+        <!-- TABELLA RIEPILOGO -->
+        <div class="box">
+            <h2 id="titolo-tabella">// Registro Transazioni</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Data / Ora</th>
+                        <th>Operatore</th>
+                        <th>Cliente</th>
+                        <th>Pratica</th>
+                        <th>Importo</th>
+                    </tr>
+                </thead>
+                <tbody id="tabella-corpo">
+                    <!-- Dati dinamici -->
+                </tbody>
+            </table>
+            <div class="totale-box" id="totale-display">TOTALE: $0</div>
+            
+            <!-- PULSANTE RESET SOLO PER ADMIN -->
+            <div id="admin-controls" class="hidden" style="text-align: right;">
+                <button class="btn-reset" onclick="resetSettimanale()">⚠️ Azzera Registro Settimanale</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    let utenteCorrente = "";
+    let ruoloCorrente = "";
+    let fatture = [];
+
+    function togglePassword() {
+        const ruolo = document.getElementById("ruolo").value;
+        const passGroup = document.getElementById("password-group");
+        if (ruolo === "admin") {
+            passGroup.classList.remove("hidden");
+        } else {
+            passGroup.classList.add("hidden");
+        }
+    }
+
+    function accedi() {
+        const nome = document.getElementById("nome-utente").value.trim();
+        const ruolo = document.getElementById("ruolo").value;
+        const pass = document.getElementById("admin-pass").value;
+
+        if (nome === "") {
+            alert("ERRORE: Inserisci il tuo identificativo Lore RP!");
+            return;
+        }
+
+        if (ruolo === "admin" && pass !== "admin123") {
+            alert("ACCESSO NEGATO: Codice Admin errato!");
+            return;
+        }
+
+        utenteCorrente = nome;
+        ruoloCorrente = ruolo;
+
+        document.getElementById("login-section").classList.add("hidden");
+        document.getElementById("app-section").classList.remove("hidden");
+        document.getElementById("benvenuto-testo").innerText = `🟢 ONLINE: ${utenteCorrente} [${ruolo.toUpperCase()}]`;
+        
+        if (ruolo === "admin") {
+            document.getElementById("titolo-tabella").innerText = "// Archivio Globale Municipio (Vista Admin)";
+            document.getElementById("admin-controls").classList.remove("hidden");
+        } else {
+            document.getElementById("titolo-tabella").innerText = "// Le Tue Pratiche Registrate";
+            document.getElementById("admin-controls").classList.add("hidden");
+        }
+
+        aggiornaTabella();
+    }
+
+    function esci() {
+        utenteCorrente = "";
+        ruoloCorrente = "";
+        document.getElementById("admin-pass").value = "";
+        document.getElementById("app-section").classList.add("hidden");
+        document.getElementById("login-section").classList.remove("hidden");
+    }
+
+    function aggiungiFattura() {
+        const cliente = document.getElementById("cliente").value.trim();
+        const servizio = document.getElementById("servizio").value.trim();
+        const importo = parseFloat(document.getElementById("importo").value);
+
+        if (cliente === "" || servizio === "" || isNaN(importo) || importo <= 0) {
+            alert("DATI INCOMPLETI: Verifica tutti i campi prima di trasmettere.");
+            return;
+        }
+
+        const adesso = new Date();
+        const dataOra = adesso.toLocaleDateString('it-IT', { day: '2-digit', month: '2-digit' }) + " " + 
+                        adesso.toLocaleTimeString('it-IT', { hour: '2-digit', minute: '2-digit' });
+
+        fatture.push({
+            data: dataOra,
+            segretario: utenteCorrente,
+            cliente: cliente,
+            servizio: servizio,
+            importo: importo
+        });
+
+        document.getElementById("cliente").value = "";
+        document.getElementById("servizio").value = "";
+        document.getElementById("importo").value = "";
+
+        aggiornaTabella();
+    }
+
+    function resetSettimanale() {
+        if (confirm("ATTENZIONE ADMIN: Sei sicuro di voler cancellare tutte le fatture registrate per il reset settimanale?")) {
+            fatture = [];
+            aggiornaTabella();
+        }
+    }
+
+    function aggiornaTabella() {
+        const tbody = document.getElementById("tabella-corpo");
+        tbody.innerHTML = "";
+        let totale = 0;
+
+        fatture.forEach(f => {
+            if (ruoloCorrente === "admin" || f.segretario.toLowerCase() === utenteCorrente.toLowerCase()) {
+                const tr = document.createElement("tr");
+                tr.innerHTML = `
+                    <td style="color: #94a3b8; font-size: 14px;">${f.data}</td>
+                    <td><strong>${f.segretario}</strong></td>
+                    <td>${f.cliente}</td>
+                    <td>${f.servizio}</td>
+                    <td class="importo-cell">$${f.importo.toLocaleString()}</td>
+                `;
+                tbody.appendChild(tr);
+                totale += f.importo;
+            }
+        });
+
+        document.getElementById("totale-display").innerText = `TOTALE FATTURATO: $${totale.toLocaleString()}`;
+    }
+</script>
+
+</body>
+</html>
